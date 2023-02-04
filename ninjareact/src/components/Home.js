@@ -1,43 +1,30 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import BlogList from "./BlogList";
+import useFetch from "./usefetch";
 const Home = () => {
+  const handleDelete = (delid) => {
+    const newblog = blog.filter((blog) => blog.id !== delid);
+    // setBlog(newblog);
+  };
 
-    // let usrname = 'tom'
-    const [usrname, setName] = useState('tom');
-    const shoot = () => {
-        // usrname = 'sara'
+  const {
+    data: blog,
+    ispending,
+    error,
+  } = useFetch("http://localhost:8000/blogs");
+  return (
+    <>
+      {error && <div>{error}</div>}
+      {ispending && <div>loading.....</div>}
+      {blog && (
+        <BlogList blog={blog} title="All Blogs!" handleDelete={handleDelete} />
+      )}
+      {/* <BlogList
+        blog={blog.filter((blog) => blog.author === "yoshi")}
+        title="yoshi's Blogs!"
+      /> */}
+    </>
+  );
+};
 
-        setName('sara') 
-
-
-        // if (usrname == 'sara') {
-        //     setName('tom')
-        // } else {
-        //   setName('sara')   
-        // }
-       
-        console.log(usrname)
-     }
-    
-    // const call = (name,e) => {
-    //     alert("suuuuuuuuuuu " + name);
-    //     console.log(e.timeStamp)
-    // }
-    
-    return (  
-        <>
-            <div className="home">
-                <p>{usrname}</p>
-
-                <button onClick={shoot}>Take the shot!</button>
-                
-                {/* <button onClick={(e) => {
-                    call('tom',e)
-                }}>cr7</button> */}
-
-            </div>
-        </>
-    );
-}
- 
-export default Home;  
+export default Home;
