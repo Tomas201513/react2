@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 const Create = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [author, setAuthor] = useState("mario");
+  const [author, setAuthor] = useState("Tomas");
   const history = useHistory();
 
   const handleSubmit = (e) => {
@@ -40,8 +40,9 @@ const Create = () => {
         ></textarea>
         <label>Blog author:</label>
         <select value={author} onChange={(e) => setAuthor(e.target.value)}>
-          <option value="mario">mario</option>
-          <option value="yoshi">yoshi</option>
+          <option value="Tomas">Tomas</option>
+          <option value="Sara">Sara</option>
+          <option value="Wasi">wasi</option>
         </select>
         <button>Add Blog</button>
       </form>

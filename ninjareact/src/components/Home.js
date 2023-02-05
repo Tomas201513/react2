@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import BlogList from "./BlogList";
-import useFetch from "./usefetch";
+import useFetch from "./useFetch";
 const Home = () => {
   const handleDelete = (delid) => {
     const newblog = blog.filter((blog) => blog.id !== delid);

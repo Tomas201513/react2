@@ -13,7 +13,7 @@ const BlogList = ({ blog, title, handleDelete }) => {
             <Link to={`/create/${blog.id}`}>
               <h2>{blog.title}</h2>
               <p>written by {blog.author}</p>
-              <button onClick={() => handleDelete(blog.id)}> Delete</button>
+              {/* <button onClick={() => handleDelete(blog.id)}> Delete</button> */}
             </Link>
           </div>
         ))}
