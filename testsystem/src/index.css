@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+@import url('./normalize.css');
+
+html,
+body,
+#root,
+.app,
+.content {
+  height: 100%;
+  width: 100%;
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+.app {
+  display: flex;
+  position: relative;
+}
