@@ -10,7 +10,6 @@ const Searchbar = () => {
         borderRadius: "3px",
         background: "#e3e6e6",
         m: "10",
-        
       }}
     >
       <IconButton type="button" sx={{ p: 0.5 }}>

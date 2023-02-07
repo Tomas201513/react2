@@ -23,8 +23,23 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import Searchbar from "./Searchbar";
+import Button from "@mui/material/Button";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import ContactsIcon from "@mui/icons-material/Contacts";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import PieChartIcon from "@mui/icons-material/PieChart";
+import SsidChartIcon from "@mui/icons-material/SsidChart";
+import MapIcon from "@mui/icons-material/Map";
+import PersonIcon from "@mui/icons-material/Person";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import HelpIcon from "@mui/icons-material/Help";
+import Image from "mui-image";
+import logo from './l.png'; // Tell webpack this JS file uses this image
 
-const drawerWidth = 240;
+
+
+const drawerWidth = 200;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -43,7 +58,7 @@ const closedMixin = (theme) => ({
   overflowX: "hidden",
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up("sm")]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
+    width: `calc(${theme.spacing(7)} + 1px)`,
   },
 });
 
@@ -51,7 +66,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "flex-end",
-  padding: theme.spacing(0, 1),
+  padding: theme.spacing(-2, 6),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
@@ -92,6 +107,15 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function MiniDrawer() {
+  const Iconarray1 = [
+    <PeopleAltIcon />,
+    <ContactsIcon />,
+    <AccountBalanceIcon />,
+  ];
+  const Iconarray2 = [<PersonIcon />, <CalendarTodayIcon />, <HelpIcon />];
+
+  const Iconarray3 = [<BarChartIcon />, <PieChartIcon />, <SsidChartIcon />,<MapIcon/>];
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -133,10 +157,16 @@ export default function MiniDrawer() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap component="div" sx={{color:'black'}}>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ color: "#353535" }}
+            >
               Lamba service
             </Typography>
           </Box>
+
           <Searchbar />
           <Box sx={{}}>
             <IconButton>
@@ -151,19 +181,70 @@ export default function MiniDrawer() {
           </Box>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+      <Drawer variant="permanent" open={open} sx={{ background: "#f9f8f6" }}>
+        <Button
+          disableRipple
+          onClick={handleDrawerClose}
+          sx={{
+            display: "block",
+            "&:hover": { backgroundColor: "transparent" },
+            height: "64px",
+          }}
+        >
+          {/* <Image
+            src="./favicon.ico"
+            errorIcon={<MyErrorIcon />}
+            height="20px"
+            width="20px"
+          /> */}
+          <image src={logo} />
+          <DrawerHeader sx={{ background: "" }}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
             ) : (
               <ChevronLeftIcon />
             )}
-          </IconButton>
-        </DrawerHeader>
+          </DrawerHeader>
+        </Button>
         <Divider />
+        <image src={logo} />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+          {["Manage Team", "Contact Info", "Invoice Balances"].map(
+            (text, index) => (
+              <ListItem
+                key={text}
+                disablePadding
+                sx={{ display: "block", marginTop: "10" }}
+              >
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {Iconarray1[index]}
+                  </ListItemIcon>
+                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </ListItem>
+            )
+          )}
+        </List>
+
+        <Divider />
+        {/* <Typography>Label</Typography> */}
+        {/* <ListItemText primary={'Label'}  disablePadding sx={{ opacity: open ? 1 : 0 }} /> */}
+
+        <List>
+          {["Profile Form", "Calendar", "FAQ Page"].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 sx={{
@@ -179,7 +260,7 @@ export default function MiniDrawer() {
                     justifyContent: "center",
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {Iconarray2[index]}
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -188,28 +269,30 @@ export default function MiniDrawer() {
         </List>
         <Divider />
         <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
+          {["Bar Chart", "Pie Chart", "Line Chart", "Geography Chart"].map(
+            (text, index) => (
+              <ListItem key={text} disablePadding sx={{ display: "block" }}>
+                <ListItemButton
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {Iconarray3[index]}
+                  </ListItemIcon>
+                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </ListItem>
+            )
+          )}
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
@@ -230,6 +313,7 @@ export default function MiniDrawer() {
           faucibus et molestie ac.
         </Typography>
         <Typography paragraph>
+          <image src={logo} />
           Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
           ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
           elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
