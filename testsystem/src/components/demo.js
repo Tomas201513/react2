@@ -36,8 +36,11 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import HelpIcon from "@mui/icons-material/Help";
 import Image from "mui-image";
 import logo from './l.png'; // Tell webpack this JS file uses this image
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 
-
+import { useContext } from "react";
+import { ColorModeContext, tokens } from "./theme";
 
 const drawerWidth = 200;
 
@@ -117,6 +120,8 @@ export default function MiniDrawer() {
   const Iconarray3 = [<BarChartIcon />, <PieChartIcon />, <SsidChartIcon />,<MapIcon/>];
 
   const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const colorMode = useContext(ColorModeContext);
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -129,59 +134,72 @@ export default function MiniDrawer() {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        open={open}
-        sx={{ background: "#f9f8f6", color: "#70706f" }}
-      >
-        <Toolbar
-          sx={{
-            position: "relative",
-            alignContent: "end",
-            // display: "inline-block",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
+      {/* <CssBaseline /> */}
+      <Box backgroundColor={colors.primary[500]}>
+        <AppBar
+          position="fixed"
+          open={open}
+          backgroundColor={colors.primary[500]}
+          // sx={{ color: "#70706f", backgroundColor: "#d5f1fd" }}
         >
-          <Box sx={{ display: "flex" }}>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              sx={{
-                marginRight: 5,
-                ...(open && { display: "none" }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ color: "#353535" }}
-            >
-              Lamba service
-            </Typography>
-          </Box>
+          <Toolbar
+            sx={{
+              position: "relative",
+              alignContent: "end",
+              // display: "inline-block",
 
-          <Searchbar />
-          <Box sx={{}}>
-            <IconButton>
-              <NotificationsOutlinedIcon />
-            </IconButton>
-            <IconButton>
-              <SettingsOutlinedIcon />
-            </IconButton>
-            <IconButton>
-              <PersonOutlinedIcon />
-            </IconButton>
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <Drawer variant="permanent" open={open} sx={{ background: "#f9f8f6" }}>
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <Box sx={{ display: "flex" }}>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleDrawerOpen}
+                edge="start"
+                sx={{
+                  marginRight: 5,
+                  ...(open && { display: "none" }),
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                // sx={{ color: "#353535" }}
+              >
+                Lamba service
+              </Typography>
+            </Box>
+
+            <Searchbar />
+            <Box sx={{}}>
+              <IconButton onClick={colorMode.toggleColorMode}>
+                {theme.palette.mode === "dark" ? (
+                  <DarkModeOutlinedIcon />
+                ) : (
+                  <LightModeOutlinedIcon />
+                )}
+              </IconButton>
+              <IconButton>
+                <NotificationsOutlinedIcon />
+              </IconButton>
+              <IconButton>
+                <SettingsOutlinedIcon />
+              </IconButton>
+              <IconButton>
+                <PersonOutlinedIcon />
+              </IconButton>
+            </Box>
+          </Toolbar>
+        </AppBar>
+      </Box>
+      <Drawer variant="permanent" anchor="left" border-right  ="none" open={open}>
+        <image src={logo} height="100vh" />
+
         <Button
           disableRipple
           onClick={handleDrawerClose}
@@ -197,7 +215,6 @@ export default function MiniDrawer() {
             height="20px"
             width="20px"
           /> */}
-          <image src={logo} />
           <DrawerHeader sx={{ background: "" }}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
@@ -206,15 +223,14 @@ export default function MiniDrawer() {
             )}
           </DrawerHeader>
         </Button>
-        <Divider />
-        <image src={logo} />
+        {/* <Divider /> */}
         <List>
           {["Manage Team", "Contact Info", "Invoice Balances"].map(
             (text, index) => (
               <ListItem
                 key={text}
                 disablePadding
-                sx={{ display: "block", marginTop: "10" }}
+                sx={{ display: "block", marginTop: "20" }}
               >
                 <ListItemButton
                   sx={{

@@ -1,14 +1,19 @@
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, useTheme } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-
+import { useContext } from "react";
+import { ColorModeContext, tokens } from "./theme";
 
 const Searchbar = () => {
+ const theme = useTheme();
+ const colors = tokens(theme.palette.mode);
+//  const colorMode = useContext(ColorModeContext);
+
   return (
     <Box
+      backgroundColor={colors.primary[400]}
       sx={{
         borderRadius: "3px",
-        background: "#e3e6e6",
         m: "10",
       }}
     >

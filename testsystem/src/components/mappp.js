@@ -7,11 +7,31 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import ContactsIcon from "@mui/icons-material/Contacts";
 import logo from "./l.png";
+import * as React from 'react';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
 
 const Mp = () => {
+    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+  const theme = React.useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: prefersDarkMode ? 'dark' : 'light',
+        },
+      }),
+    [prefersDarkMode],
+  );
   const a = [<InboxIcon/>, <MailIcon/>, <ContactsIcon/>];
   return (
     <>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {/* <Routes /> */}
+      </ThemeProvider>
       <List>
         {["All mail", "Trash", "Spam"].map((text, index) => (
           <ListItem key={text} disablePadding sx={{ display: "block" }}>
@@ -29,7 +49,7 @@ const Mp = () => {
               >
                 {a[index]}
               </ListItemIcon>
-              <ListItemText primary={text}  />
+              <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>
         ))}
